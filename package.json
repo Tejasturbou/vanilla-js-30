@@ -1,0 +1,23 @@
+{
+  "name": "vanilla-js-30",
+  "version": "1.0.0",
+  "description": "30 projects on in 30 days to warm up with vanilla JS.",
+  "main": "index.js",
+  "scripts": {
+    "start": "lite-server --baseDir=drum-kit",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tejasturbou/vanilla-js-30.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tejasturbou/vanilla-js-30/issues"
+  },
+  "homepage": "https://github.com/Tejasturbou/vanilla-js-30#readme",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
