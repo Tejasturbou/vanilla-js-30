@@ -14,5 +14,5 @@ keysArray.forEach(key => key.addEventListener('transitionend', removeClass));
 
 function removeClass(event) {
     if (event.propertyName !== 'transform') return;
-    this.classList.remove('playing');
+    event.target.classList.remove('playing')
 }
