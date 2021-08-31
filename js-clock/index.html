@@ -63,6 +63,7 @@
       position: absolute;
       top: 50%;
       transform-origin: 100%;
+      transition: all 0.005s;
     }
 
   </style>
@@ -87,9 +88,6 @@
       let hr = date.getHours();
       let hrDegree = (hr / 12) * 360 + 90;
       hrHand.style.transform = `rotate(${hrDegree}deg)`;
-
-      console.log(hr, min, sec);
-      console.log(hrDegree, minDegree, secDegree);
     }
 
     setInterval(setDate, 1000);
