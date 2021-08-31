@@ -1,6 +1,6 @@
 # vanilla-js-30
 
-30 projects on in 30 days to warm up with vanilla JS.
+30 projects in 30 days to warm up with vanilla JS.
 
 ## How to start any Project in this workspace.
 
