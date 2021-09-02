@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Type Ahead 👀</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-
   <form class="search-form">
     <input type="text" class="search" placeholder="City or State">
     <ul class="suggestions">
@@ -16,6 +15,38 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+let places = [];
+
+const suggestionsElement = document.querySelector('.suggestions');
+
+fetch(endpoint)
+  .then(res => res.json())
+  .then(res => {
+    places = res;
+  })
+
+function renderPlaces() {
+  let placesArray = filterPlaces(this.value, places)
+  const html = placesArray.map(place => {
+
+
+    return `
+      <li>
+        <span class="name">${place.city}, ${place.state}</span>
+        <span class="population">${place.population}</span>
+      </li>
+    `
+  }).join('')
+  suggestionsElement.innerHTML = html;
+}
+
+function filterPlaces(match, cities) {
+  const regex = new RegExp(match, 'gi');
+  return cities.filter(place => place.city.match(regex) || place.state.match(regex));
+}
+
+const inputElement = document.querySelector('.search');
+inputElement.addEventListener('input', renderPlaces);
 
 </script>
 </body>
