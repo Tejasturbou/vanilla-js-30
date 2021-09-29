@@ -51,12 +51,23 @@
 				<input type="text" name="item" placeholder="Item Name" required />
 				<input type="submit" value="+ Add Item" />
 			</form>
+			<div class="buttons-div">
+				<button class="check-all-btn">Check All</button>
+				<button class="uncheck-all-btn">Uncheck All</button>
+				<button class="clear-btn">Clear All</button>
+			</div>
 		</div>
 
 		<script>
 			const addItems = document.querySelector(".add-items");
 			const itemsList = document.querySelector(".plates");
 			const items = JSON.parse(localStorage.getItem("items")) || [];
+			const checkButton = document.querySelector(".check-all-btn");
+			const uncheckButton = document.querySelector(".uncheck-all-btn");
+			const clearButton = document.querySelector(".clear-btn");
+			checkButton.disabled = !Boolean(items.length);
+			uncheckButton.disabled = !Boolean(items.length);
+			clearButton.disabled = !Boolean(items.length);
 
 			populateList(items, itemsList);
 
@@ -67,11 +78,13 @@
 					text,
 					done: false,
 				};
-				console.log(items, item);
+
 				items.push(item);
 				localStorage.setItem("items", JSON.stringify(items));
 				populateList(items, itemsList);
 				this.reset();
+				checkButton.disabled = false;
+				clearButton.disabled = false;
 			}
 
 			function populateList(plates, element) {
@@ -96,10 +109,44 @@
 				items[index].done = !items[index].done;
 				localStorage.setItem("items", JSON.stringify(items));
 				populateList(items, itemsList);
+				clearButton.disabled = false;
+				if (items[index].done) {
+					uncheckButton.disabled = false;
+				} else {
+					checkButton.disabled = false;
+				}
+			}
+
+			function clearAll() {
+				items.splice(0, items.length);
+				localStorage.removeItem("items");
+				populateList(items, itemsList);
+				clearButton.disabled = true;
+				checkButton.disabled = true;
+				uncheckButton.disabled = true;
+			}
+
+			function toggleCheck(value) {
+				if (items.length === 0) return;
+				items.forEach((item) => {
+					item.done = value;
+				});
+				localStorage.setItem("items", JSON.stringify(items));
+				populateList(items, itemsList);
+				if (value) {
+					checkButton.disabled = true;
+					uncheckButton.disabled = false;
+				} else {
+					checkButton.disabled = false;
+					uncheckButton.disabled = true;
+				}
 			}
 
 			addItems.addEventListener("submit", addItem);
 			itemsList.addEventListener("click", toggleDone);
+			checkButton.addEventListener("click", toggleCheck.bind(this, true));
+			uncheckButton.addEventListener("click", toggleCheck.bind(this, false));
+			clearButton.addEventListener("click", clearAll);
 		</script>
 	</body>
 </html>
